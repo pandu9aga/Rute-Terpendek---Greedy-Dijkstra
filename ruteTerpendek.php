@@ -1,6 +1,7 @@
 <?php
   include ('connection.php');
   require("dijkstra/RunTest.php");
+  //panggil file runtest
 ?>
 <!DOCTYPE html>
 <html>
@@ -168,6 +169,7 @@
                    <select name="dari" class="form-control" id="dari">
                      <?php
                      $no = 1;
+                     //tampilkan daftar kecamatan
                      $data =  mysqli_query($conn, "select * from kecamatan");
                      while($d = mysqli_fetch_assoc($data))
                      {
@@ -181,6 +183,7 @@
                    <select name="ke" class="form-control" id="ke">
                      <?php
                      $no = 1;
+                     //tampilkan daftar kecamatan
                      $data =  mysqli_query($conn, "select * from kecamatan");
                      while($d = mysqli_fetch_assoc($data))
                      {
@@ -195,10 +198,13 @@
             </div>
             <?php
             if (isset($_GET['dari'],$_GET['ke'])) {
+              //kalau menerima isi variabel get dari dan ke
+              //tampilkan card hasil pencarian
               $dari = $_GET['dari'];
               $ke = $_GET['ke'];
 
               $path = runTest($dari,$ke);
+              //panggil fungsi untuk mendapatkan rute terpendek berdasarkan inputan
               ?>
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
@@ -210,9 +216,11 @@
                   <p>Rute terpendek dari <?php echo $dari; ?> ke <?php echo $ke; ?> adalah :</p>
                   <?php
                   if ($dari == $ke) {
+                    //kalau titik awal dan akhir sama print titik awal
                     echo $dari;
                   }else {
                     //var_dump($path);
+                    //tampilkan hasil rute terpendek disisipkan tanda ->
                     echo implode(' -> ', $path);
                   }
                   ?>

@@ -5,6 +5,7 @@
  */
 
 require("Dijkstra.php");
+//panggil file dijkstra
 
 function runTest($input_a,$input_b) {
 	$conn = mysqli_connect("localhost","root","","greedy");
@@ -16,23 +17,31 @@ function runTest($input_a,$input_b) {
   }
 
 	$g = new Graph();
+	//buat objek graph
 
 	//contoh struktur graph
 	//$g->addedge("a", "b", 4);
 
 	$data =  mysqli_query($conn, "select * from jarak");
+	//ambil data semua jarak yang ada
 	while($d = mysqli_fetch_assoc($data))
 	{
+		//tambah data jarak ke objek graph $g
 		$g->addedge($d['kec_awal'], $d['kec_tujuan'], $d['jarak']);
 		$g->addedge($d['kec_tujuan'], $d['kec_awal'], $d['jarak']);
+		//karena tipe rutenya satu arah jadi di bolak balik
+		//ex: a ke b = 100 & b ke a = 100
 	}
 
 	list($distances, $prev) = $g->paths_from($input_a);
+	//cari list jarak yang ada titik awal sesuai sama yg diinput $dari
 
 	$path = $g->paths_to($prev, $input_b);
+	//ambil rute terpendek dari titik awal $dari menuju titik yang ada $ke
 
 	//print_r($path);
 	return $path;
+	//mengembalikan hasil rute terpendek
 
 }
 
