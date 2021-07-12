@@ -217,11 +217,42 @@
                   <?php
                   if ($dari == $ke) {
                     //kalau titik awal dan akhir sama print titik awal
-                    echo $dari;
+                    echo $dari.'<br>';
+                    echo "Jarak yang ditempuh adalah <b>0 m</b> atau <b>0 km</b>";
                   }else {
                     //var_dump($path);
                     //tampilkan hasil rute terpendek disisipkan tanda ->
                     echo implode(' -> ', $path);
+                    echo "<br>";
+                    $arrLength = count($path);
+                    $totaljarak = 0;
+                    //lakukan perulangan sebanyak isi array path untuk mengambil jarak tiap jalur
+                    for ($i = 0; $i < $arrLength; $i++) {
+                      //jika belum sampai titik terakhir/tujuan ambil jaraknya
+                      if ($i!=$arrLength-1) {
+                        $awal = $path[$i];
+                        $tujuan = $path[$i+1];
+                        //cek database jarak antara awal ke tujuan
+                        $jarakquery = "SELECT * FROM jarak WHERE kec_awal = '$awal' AND kec_tujuan = '$tujuan'";
+                        $jarak =  mysqli_query($conn, $jarakquery);
+                        $hasil = mysqli_num_rows($jarak);
+                        //jika tidak ada cari jarak sebaliknya yaitu antara tujuan ke awal
+                        if ($hasil==0) {
+                          $jarakquery = "SELECT * FROM jarak WHERE kec_awal = '$tujuan' AND kec_tujuan = '$awal'";
+                          $jarak =  mysqli_query($conn, $jarakquery);
+                        }
+                        //data jarak yang sudah ketemu, ditambahkan ke dalam variabel totaljarak
+                        while($j = mysqli_fetch_array($jarak))
+                        {
+                          $totaljarak = $totaljarak+$j['jarak'];
+                        }
+
+                      }
+                    }
+                    //konversi m ke km
+                    $kmjarak = $totaljarak/1000;
+                    //print hasil
+                    echo "Jarak yang ditempuh adalah <b>".$totaljarak." m</b> atau <b>".$kmjarak." km</b>";
                   }
                   ?>
                 </div>
