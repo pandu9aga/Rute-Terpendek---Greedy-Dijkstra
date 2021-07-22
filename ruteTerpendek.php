@@ -168,12 +168,13 @@
                    <label for="dari">Dari</label>
                    <select name="dari" class="form-control" id="dari">
                      <?php
-                     $no = 1;
+                     //$no = 1;
                      //tampilkan daftar kecamatan
                      $data =  mysqli_query($conn, "select * from kecamatan");
                      while($d = mysqli_fetch_assoc($data))
                      {
-                       echo '<option value="'.$d['nama_kecamatan'].'">'.$d['nama_kecamatan'].'</option>';
+                       echo '<option value="'.$d['nama_kecamatan'].'">'.$d['nomor_kecamatan'].' = '.$d['nama_kecamatan'].'</option>';
+                       //$no++;
                      }
                      ?>
                    </select>
@@ -182,15 +183,17 @@
                    <label for="ke">Ke</label>
                    <select name="ke" class="form-control" id="ke">
                      <?php
-                     $no = 1;
+                     //$no = 1;
                      //tampilkan daftar kecamatan
                      $data =  mysqli_query($conn, "select * from kecamatan");
                      while($d = mysqli_fetch_assoc($data))
                      {
-                       echo '<option value="'.$d['nama_kecamatan'].'">'.$d['nama_kecamatan'].'</option>';
+                       echo '<option value="'.$d['nama_kecamatan'].'">'.$d['nomor_kecamatan'].' = '.$d['nama_kecamatan'].'</option>';
+                       //$no++;
                      }
                      ?>
                    </select>
+
                  </div>
                  <button type="submit" class="btn btn-primary">Cari</button>
                </form>
@@ -222,10 +225,21 @@
                   }else {
                     //var_dump($path);
                     //tampilkan hasil rute terpendek disisipkan tanda ->
-                    echo implode(' -> ', $path);
-                    echo "<br>";
+                    //echo implode(' -> ', $path);
                     $arrLength = count($path);
                     $totaljarak = 0;
+                    for ($i = 0; $i < $arrLength; $i++) {
+                      $namakecamatan = $path[$i];
+                      $kecamatanquery = "SELECT * FROM kecamatan WHERE nama_kecamatan = '$namakecamatan'";
+                      $kecamatan =  mysqli_query($conn, $kecamatanquery);
+                      while($k = mysqli_fetch_array($kecamatan))
+                      {
+                        echo $k['nomor_kecamatan'].' = '.$k['nama_kecamatan'];
+                        if ($i<$arrLength-1) {
+                          echo " -> ";
+                        }
+                      }
+                    }
                     //lakukan perulangan sebanyak isi array path untuk mengambil jarak tiap jalur
                     for ($i = 0; $i < $arrLength; $i++) {
                       //jika belum sampai titik terakhir/tujuan ambil jaraknya
@@ -249,6 +263,7 @@
 
                       }
                     }
+                    echo "<br>";
                     //konversi m ke km
                     $kmjarak = $totaljarak/1000;
                     //print hasil

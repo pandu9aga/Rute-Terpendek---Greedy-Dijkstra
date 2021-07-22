@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 04, 2021 at 06:41 AM
+-- Generation Time: Jul 22, 2021 at 01:04 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -93,37 +93,38 @@ INSERT INTO `jarak` (`kode_jarak`, `kec_awal`, `kec_tujuan`, `jarak`) VALUES
 
 CREATE TABLE `kecamatan` (
   `id_kecamatan` int(11) NOT NULL,
-  `nama_kecamatan` varchar(100) DEFAULT NULL
+  `nama_kecamatan` varchar(100) DEFAULT NULL,
+  `nomor_kecamatan` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `kecamatan`
 --
 
-INSERT INTO `kecamatan` (`id_kecamatan`, `nama_kecamatan`) VALUES
-(1, 'Bondowoso'),
-(2, 'Tegalampel'),
-(3, 'Tenggarang'),
-(4, 'Taman Krocok'),
-(5, 'Wonosari'),
-(6, 'Tapen'),
-(7, 'Klabang'),
-(8, 'Botolinggo'),
-(9, 'Prajekan'),
-(10, 'Cermee'),
-(11, 'Sukosari'),
-(12, 'Sumber Wringin'),
-(13, 'Sempol'),
-(14, 'Tlogosari'),
-(15, 'Pujer'),
-(16, 'Jambesari'),
-(17, 'Tamanan'),
-(18, 'Maesan'),
-(19, 'Grujugan'),
-(20, 'Curahdami'),
-(21, 'Binakal'),
-(22, 'Pakem'),
-(23, 'Wringin');
+INSERT INTO `kecamatan` (`id_kecamatan`, `nama_kecamatan`, `nomor_kecamatan`) VALUES
+(1, 'Bondowoso', 1),
+(2, 'Tegalampel', 2),
+(3, 'Tenggarang', 3),
+(4, 'Taman Krocok', 4),
+(5, 'Wonosari', 5),
+(6, 'Tapen', 6),
+(7, 'Klabang', 7),
+(8, 'Botolinggo', 8),
+(9, 'Prajekan', 9),
+(10, 'Cermee', 10),
+(11, 'Sukosari', 11),
+(12, 'Sumber Wringin', 12),
+(13, 'Sempol', 13),
+(14, 'Tlogosari', 14),
+(15, 'Pujer', 15),
+(16, 'Jambesari', 16),
+(17, 'Tamanan', 17),
+(18, 'Maesan', 18),
+(19, 'Grujugan', 19),
+(20, 'Curahdami', 20),
+(21, 'Binakal', 21),
+(22, 'Pakem', 22),
+(23, 'Wringin', 23);
 
 -- --------------------------------------------------------
 
